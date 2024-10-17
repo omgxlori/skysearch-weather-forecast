@@ -20,7 +20,16 @@ API Calls
 // Fetch weather data from the server
 const fetchWeather = async (cityName: string) => {
   try {
-    const response = await fetch('https://skysearch-weather-forecast.onrender.com/api/weather/', {
+    // Get today's date and calculate tomorrow's date (October 17th)
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    // Format tomorrow's date as YYYY-MM-DD for the API request
+    const formattedStartDate = tomorrow.toISOString().split('T')[0];
+
+    // Adjust the API request to include the start date as a query parameter
+    const response = await fetch(`https://skysearch-weather-forecast.onrender.com/api/weather/?start_date=${formattedStartDate}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -35,7 +44,7 @@ const fetchWeather = async (cityName: string) => {
       throw new Error('No current weather data found');
     }
 
-    // Log weather data to see timezone
+    // Log weather data to see if the start date worked correctly
     console.log('Weather Data:', weatherData);
 
     // Render weather and forecast using the correct data
@@ -45,6 +54,7 @@ const fetchWeather = async (cityName: string) => {
     console.error('Error fetching weather data:', error);
   }
 };
+
 
 // Fetch search history from the server
 const fetchSearchHistory = async () => {
