@@ -20,7 +20,7 @@ API Calls
 // Fetch weather data from the server
 const fetchWeather = async (cityName: string) => {
   try {
-    const response = await fetch('/api/weather/', {
+    const response = await fetch('https://skysearch-weather-forecast.onrender.com/api/weather/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ const fetchWeather = async (cityName: string) => {
 // Fetch search history from the server
 const fetchSearchHistory = async () => {
   try {
-    const response = await fetch('/api/weather/history');
+    const response = await fetch('https://skysearch-weather-forecast.onrender.com/api/weather/history');
     if (!response.ok) throw new Error('Error fetching search history');
 
     const history = await response.json();
@@ -125,7 +125,6 @@ const renderForecast = (forecast: any): void => {
   }
 };
 
-// Render a single forecast card
 // Render a single forecast card
 const renderForecastCard = (forecast: any) => {
   const { date, icon, iconDescription, tempF, windSpeed, humidity } = forecast;
@@ -280,7 +279,7 @@ const handleDeleteHistoryClick = async (event: any): Promise<void> => {
 
   try {
     // Send DELETE request to the server
-    const response = await fetch(`/api/weather/history/${cityID}`, {
+    const response = await fetch(`https://skysearch-weather-forecast.onrender.com/api/weather/history/${cityID}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
