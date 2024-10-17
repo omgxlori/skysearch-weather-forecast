@@ -2,7 +2,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import express from 'express';
 import dotenv from 'dotenv';
-const cors = require('cors');
+import cors from 'cors'; // Use ES Module syntax for cors
 import routes from './routes/index.js'; // Assuming routes are set up properly
 
 dotenv.config();
@@ -12,7 +12,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = process.env.PORT || 3001;  // Use process.env.PORT to use the port Render provides
+const PORT = process.env.PORT || 3001;
 
 // Enable CORS for your Vercel frontend
 app.use(cors({
