@@ -20,16 +20,7 @@ API Calls
 // Fetch weather data from the server
 const fetchWeather = async (cityName: string) => {
   try {
-    // Get today's date and calculate tomorrow's date (October 17th)
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-
-    // Format tomorrow's date as YYYY-MM-DD for the API request
-    const formattedStartDate = tomorrow.toISOString().split('T')[0];
-
-    // Adjust the API request to include the start date as a query parameter
-    const response = await fetch(`https://skysearch-weather-forecast.onrender.com/api/weather/?start_date=${formattedStartDate}`, {
+    const response = await fetch('https://skysearch-weather-forecast.onrender.com/api/weather/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -44,16 +35,42 @@ const fetchWeather = async (cityName: string) => {
       throw new Error('No current weather data found');
     }
 
-    // Log weather data to see if the start date worked correctly
+    // Log weather data to see timezone
     console.log('Weather Data:', weatherData);
+
+    // Extract current weather and forecast
+    const currentWeather = weatherData.currentWeather;
+    let forecast = weatherData.forecast;
+
+    // Check if forecast starts from October 18th and estimate October 17th if necessary
+    const firstForecastDate = new Date(forecast[0].date);
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1); // Set to tomorrow's date (October 17th)
+
+    if (firstForecastDate.getDate() !== tomorrow.getDate()) {
+      // Estimate weather for October 17th using current weather (Oct 16th) and forecast for October 18th
+      const estimated17th = {
+        cityName: currentWeather.cityName,
+        date: tomorrow.toISOString().split('T')[0], // October 17th
+        icon: forecast[0].icon, // Use the icon from October 18th as a fallback
+        description: forecast[0].description, // Use description from October 18th
+        temperature: (currentWeather.temperature + forecast[0].temperature) / 2, // Average temperature
+        humidity: (currentWeather.humidity + forecast[0].humidity) / 2, // Average humidity
+        windSpeed: (currentWeather.windSpeed + forecast[0].windSpeed) / 2, // Average wind speed
+      };
+
+      // Insert estimated data for October 17th at the start of the forecast array
+      forecast = [estimated17th, ...forecast];
+    }
 
     // Render weather and forecast using the correct data
     renderCurrentWeather(weatherData.currentWeather, weatherData.timezone);
-    renderForecast(weatherData.forecast);
+    renderForecast(forecast);
   } catch (error) {
     console.error('Error fetching weather data:', error);
   }
 };
+
 
 
 // Fetch search history from the server
