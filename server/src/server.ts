@@ -12,13 +12,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3001;  // Use process.env.PORT to use the port Render provides
 
 // Enable CORS for your Vercel frontend
 app.use(cors({
-  origin: 'https://skysearch-weather-forecast.vercel.app', // Vercel frontend URL
-  methods: ['GET', 'POST', 'DELETE', 'PUT'], // Specify the allowed methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Specify the allowed headers
+  origin: 'https://skysearch-weather-forecast.vercel.app', // Allow only your Vercel frontend
+  methods: ['GET', 'POST', 'DELETE', 'PUT'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   preflightContinue: false,
   optionsSuccessStatus: 204
 }));
@@ -33,5 +33,5 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 // Connect routes (API + HTML routes)
 app.use(routes);
 
-// Start the server on the specified port
+// Start the server on the specified port from the environment variable
 app.listen(PORT, () => console.log(`Server is running at http://localhost:${PORT}`));
