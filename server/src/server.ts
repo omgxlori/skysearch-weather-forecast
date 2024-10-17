@@ -2,8 +2,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import express from 'express';
 import dotenv from 'dotenv';
-import cors from 'cors'; // Use ES Module syntax for cors
-import routes from './routes/index.js'; // Assuming routes are set up properly
+import cors from 'cors'; // Using the correct import syntax for ES modules
+import routes from './routes/index.js'; // Your route setup
 
 dotenv.config();
 
@@ -16,11 +16,10 @@ const PORT = process.env.PORT || 3001;
 
 // Enable CORS for your Vercel frontend
 app.use(cors({
-  origin: 'https://skysearch-weather-forecast.vercel.app', // Allow only your Vercel frontend
-  methods: ['GET', 'POST', 'DELETE', 'PUT'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  preflightContinue: false,
-  optionsSuccessStatus: 204
+  origin: 'https://skysearch-weather-forecast.vercel.app', // Allow requests from your Vercel frontend
+  methods: ['GET', 'POST', 'DELETE', 'PUT'], // Allow specific methods
+  allowedHeaders: ['Content-Type'], // Allow necessary headers
+  optionsSuccessStatus: 204, // Handle preflight responses properly
 }));
 
 // Middleware for parsing JSON and urlencoded form data
@@ -33,5 +32,5 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 // Connect routes (API + HTML routes)
 app.use(routes);
 
-// Start the server on the specified port from the environment variable
+// Start the server
 app.listen(PORT, () => console.log(`Server is running at http://localhost:${PORT}`));
