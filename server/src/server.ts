@@ -2,7 +2,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import express from 'express';
 import dotenv from 'dotenv';
-const cors = require('cors'); // Use CommonJS require for CORS
+const cors = require('cors');
 import routes from './routes/index.js'; // Assuming routes are set up properly
 
 dotenv.config();
@@ -16,9 +16,11 @@ const PORT = process.env.PORT || 3001;
 
 // Enable CORS for your Vercel frontend
 app.use(cors({
-  origin: 'https://skysearch-weather-forecast.vercel.app', // Allow only your Vercel frontend
-  methods: 'GET,POST,DELETE,PUT',  // Specify allowed HTTP methods (if necessary)
-  credentials: true  // Allow credentials (if needed)
+  origin: 'https://skysearch-weather-forecast.vercel.app', // Vercel frontend URL
+  methods: ['GET', 'POST', 'DELETE', 'PUT'], // Specify the allowed methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Specify the allowed headers
+  preflightContinue: false,
+  optionsSuccessStatus: 204
 }));
 
 // Middleware for parsing JSON and urlencoded form data
