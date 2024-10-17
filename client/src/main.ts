@@ -112,16 +112,30 @@ const renderForecast = (forecast: any): void => {
     forecastContainer.append(headingCol);
   }
 
+  // Get today's date and ensure forecast starts from tomorrow (adjust the range as needed)
+  const today = new Date();
+  const startingDate = new Date(today);
+  startingDate.setDate(today.getDate() + 1); // Set starting date to tomorrow
+
+  // Track rendered days to ensure we render the correct 5-day forecast
+  let daysRendered = 0;
+
   for (let i = 0; i < forecast.length; i++) {
     const day = forecast[i];
-    renderForecastCard({
-      date: day.date,
-      icon: day.icon,
-      iconDescription: day.description,
-      tempF: day.temperature,
-      windSpeed: day.windSpeed,
-      humidity: day.humidity,
-    });
+    const forecastDate = new Date(day.date);
+
+    // Only render forecast days starting from the day after today
+    if (forecastDate >= startingDate && daysRendered < 5) {
+      renderForecastCard({
+        date: day.date,
+        icon: day.icon,
+        iconDescription: day.description,
+        tempF: day.temperature,
+        windSpeed: day.windSpeed,
+        humidity: day.humidity,
+      });
+      daysRendered++;
+    }
   }
 };
 
@@ -155,6 +169,7 @@ const renderForecastCard = (forecast: any) => {
     forecastContainer.append(col);
   }
 };
+
 
 
 // Render search history
