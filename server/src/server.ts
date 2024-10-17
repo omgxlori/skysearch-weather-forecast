@@ -2,6 +2,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import express from 'express';
 import dotenv from 'dotenv';
+const cors = require('cors');
 import routes from './routes/index.js'; // Assuming routes are set up properly
 
 dotenv.config();
@@ -12,6 +13,11 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Enable CORS for your Vercel frontend
+app.use(cors({
+  origin: 'https://skysearch-weather-forecast.vercel.app' // Allow only your Vercel frontend
+}));
 
 // Serve static files from the 'client/dist' directory
 app.use(express.static(path.join(__dirname, '../client/dist')));
