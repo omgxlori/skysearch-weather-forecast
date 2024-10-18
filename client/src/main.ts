@@ -125,7 +125,7 @@ const renderForecast = (forecast: any): void => {
   // Get today's date and ensure forecast starts from tomorrow (adjust the range as needed)
   const today = new Date();
   const startingDate = new Date(today);
-  startingDate.setDate(today.getDate() + 1); // Set starting date to tomorrow
+  startingDate.setDate(today.getDate()); // Set starting date to tomorrow
 
   // Track rendered days to ensure we render the correct 5-day forecast
   let daysRendered = 0;
