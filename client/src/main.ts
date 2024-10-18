@@ -29,7 +29,7 @@ const fetchWeather = async (cityName: string) => {
     const formattedStartDate = tomorrow.toISOString().split('T')[0];
 
     // Adjust the API request to include the start date as a query parameter
-    const response = await fetch(`https://skysearch-weather-forecast.onrender.com/api/weather/?start_date=${formattedStartDate}`, {
+    const response = await fetch(`/api/weather/?start_date=${formattedStartDate}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ const fetchWeather = async (cityName: string) => {
 // Fetch search history from the server
 const fetchSearchHistory = async () => {
   try {
-    const response = await fetch('https://skysearch-weather-forecast.onrender.com/api/weather/history');
+    const response = await fetch('/api/weather/history');
     if (!response.ok) throw new Error('Error fetching search history');
 
     const history = await response.json();
