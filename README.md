@@ -11,12 +11,12 @@ SkySearch Weather Forecast is a weather app that allows users to search for weat
 - User-friendly interface with responsive design
 
 ## Technologies Used
-- <b>Node.js:</b> Backend environment for running the app
-- <b>Express.js:</b> Web framework for Node.js
-- <b>fs module:</b> File system operations to store and retrieve search history
-- <b>API:</b> Fetches weather data from a third-party service, specifically OpenWeatherMap API
-- <b>JavaScript:</b> Main programming language for building the app
-- <b>HTML & CSS:</b> Frontend design and layout
+- **Node.js:** Backend environment for running the app
+- **Express.js:** Web framework for Node.js
+- **fs module:** File system operations to store and retrieve search history
+- **API:** Fetches weather data from a third-party service, specifically OpenWeatherMap API
+- **JavaScript:** Main programming language for building the app
+- **HTML & CSS:** Frontend design and layout
 
 ## Installation
 1. Clone the repository:
@@ -40,34 +40,24 @@ API_KEY=your_openweathermap_api_key
 ```
 
 ## Usage
-1. Before starting the server, ensure that both the server-side and client-side applications are properly built:
+1. Start the application:
 ```md
-npm run build
-```
-Run this command separately in both the server and client directories.
-
-2. After building, start the server in the server directory:
-```md
-npm run dev
+npm run start
 ```
 
-3. In a new terminal, navigate to the client directory and start the client side:
-```md
-npm run dev
-```
+2. Open the application:
+* The application should automatically open in your browser.
 
-4. Open a web browser and go to http://localhost:5000.
-
-5. Enter a city name in the search bar to view the weather information.
+3. Enter a city name in the search bar to view the weather information for that location.
 
 ## Search History
 The SkySearch Weather Forecast stores your search history in a searchHistory.json file. To view or modify the search history, open searchHistory.json located in the root of the project folder. The file will store an array of previously searched cities.
 
 ## Future Enhancements
-- <b>Real-time updates:</b> Automatically refresh weather data at regular intervals for up-to-date information.
-- <b>Faster data loading:</b> Optimize API calls and caching to improve loading times and reduce latency.
-- <b>User preferences:</b> Allow users to set and save preferences for temperature units (Celsius/Fahrenheit) or default cities.
-- <b>Interactive maps:</b> Display a map with the city's location
+- **Real-time updates:** Automatically refresh weather data at regular intervals for up-to-date information.
+- **Faster data loading:** Optimize API calls and caching to improve loading times and reduce latency.
+- **User preferences:** Allow users to set and save preferences for temperature units (Celsius/Fahrenheit) or default cities.
+- **Interactive maps:** Display a map with the city's location
 
 ## Contributing
 Feel free to open issues or submit pull requests. Contributions are welcome!
